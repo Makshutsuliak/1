@@ -8,11 +8,21 @@ const classNames = {
 const list = document.getElementById('todo-list');
 const itemCountSpan = document.getElementById('item-count');
 const uncheckedCountSpan = document.getElementById('unchecked-count');
+const todoInput = document.getElementById('todo-input'); // Поле для введення назви TODO
 
 let todoCount = 0;
 let uncheckedCount = 0;
 
 function newTodo() {
+  // Отримуємо назву TODO з введеного тексту
+  const todoName = todoInput.value.trim();
+
+  // Якщо поле порожнє, не додаємо TODO
+  if (!todoName) {
+    alert("Please enter a TODO name");
+    return;
+  }
+
   // Створюємо новий контейнер для TODO
   const todoItem = document.createElement('li');
   todoItem.className = classNames.TODO_ITEM;
@@ -33,7 +43,7 @@ function newTodo() {
   // Створюємо текстове поле для TODO
   const todoText = document.createElement('span');
   todoText.className = classNames.TODO_TEXT;
-  todoText.textContent = `TODO ${todoCount + 1}`;
+  todoText.textContent = todoName;
 
   // Створюємо кнопку видалення
   const deleteButton = document.createElement('button');
@@ -55,6 +65,9 @@ function newTodo() {
 
   // Додаємо новий TODO елемент до списку
   list.appendChild(todoItem);
+
+  // Очищаємо поле введення після додавання TODO
+  todoInput.value = '';
 
   // Оновлюємо кількість завдань
   todoCount++;
